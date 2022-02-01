@@ -7,8 +7,8 @@ please copy .env.example to .env and populate all information before run this li
 
 
 # Usage
-run `python3 main.py reload` to check if you have public ip, if not router it self will redial pppoe it self and update to cloudflare DNS account
-
+run `python3 main.py start` to check if you have public ip, if not router it self will redial pppoe it self and update to cloudflare DNS account
+or run `python3 main.py reload` to restart pppoe and run same as start
 or run `python3 main.py get_ip` to get the ip only once.
 
 # Dependency

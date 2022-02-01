@@ -29,7 +29,7 @@ def get_current_ip():
     return ipaddress.IPv4Address(wan_ip)
 
 
-def ip_public_grabber():
+def start():
     global mi_wifi
     
     lastIp = str(get_current_ip())
@@ -48,6 +48,16 @@ def ip_public_grabber():
     print("last IP : ", lastIp)
     print("Current IP : ", currentIp)
     
+    
+def reload():
+    global mi_wifi
+    
+    mi_wifi.runAction('pppoe_stop')
+    time.sleep(1)
+    mi_wifi.runAction('pppoe_start')
+    time.sleep(5)
+    
+    return start()
 
 def update_cloudflare_dns(newIp):
     
@@ -70,8 +80,10 @@ def update_cloudflare_dns(newIp):
 if __name__ == '__main__':
     try:
         arg = sys.argv
-        if arg[1] == 'reload':
-            ip_public_grabber()
+        if arg[1] == 'start':
+            start()
+        elif arg[1] == 'reload':
+            reload()
         elif arg[1] == 'get_ip':
             print(str(get_current_ip()))
         else:
