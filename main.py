@@ -26,7 +26,10 @@ def get_current_ip():
     pppoe_dict = mi_wifi.runAction('pppoe_status')
     wan_ip = pppoe_dict['ip']['address']
     
-    return ipaddress.IPv4Address(wan_ip)
+    try:
+        return ipaddress.IPv4Address(wan_ip)
+    except:
+        return get_current_ip()
 
 
 def start():
@@ -38,7 +41,6 @@ def start():
         mi_wifi.runAction('pppoe_stop')
         time.sleep(1)
         mi_wifi.runAction('pppoe_start')
-        time.sleep(5)
         
     currentIp = str(get_current_ip())
         
